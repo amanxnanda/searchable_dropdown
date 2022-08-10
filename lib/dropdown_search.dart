@@ -83,6 +83,8 @@ class DropdownSearch<T> extends StatefulWidget {
   ///offline items list
   final List<T> items;
 
+  final Widget? adjacentWidget;
+
   ///selected item
   final T? selectedItem;
 
@@ -163,6 +165,7 @@ class DropdownSearch<T> extends StatefulWidget {
   final BeforePopupOpeningMultiSelection<T>? onBeforePopupOpeningMultiSelection;
 
   DropdownSearch({
+    this.adjacentWidget,
     Key? key,
     this.onSaved,
     this.validator,
@@ -197,6 +200,7 @@ class DropdownSearch<T> extends StatefulWidget {
         super(key: key);
 
   DropdownSearch.multiSelection({
+    this.adjacentWidget,
     Key? key,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.items = const [],

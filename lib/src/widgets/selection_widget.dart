@@ -8,6 +8,7 @@ import '../../dropdown_search.dart';
 import 'checkbox_widget.dart';
 
 class SelectionWidget<T> extends StatefulWidget {
+  final Widget? adjacentWidget;
   final List<T> items;
   final ValueChanged<List<T>>? onChanged;
   final DropdownSearchOnFind<T>? asyncItems;
@@ -19,6 +20,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final bool isMultiSelectionMode;
 
   const SelectionWidget({
+    this.adjacentWidget,
     Key? key,
     required this.popupProps,
     this.defaultSelectedItems = const [],
@@ -239,6 +241,16 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
     if (widget.popupProps.validationWidgetBuilder != null) {
       return widget.popupProps.validationWidgetBuilder!(
           context, _selectedItems);
+    }
+
+    if (widget.adjacentWidget != null) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          widget.adjacentWidget!,
+          defaultValidation,
+        ],
+      );
     }
 
     return defaultValidation;
