@@ -656,6 +656,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
 
   Widget _popupWidgetInstance() {
     return SelectionWidget<T>(
+      adjacentWidget: widget.adjacentWidget,
       key: _popupStateKey,
       popupProps: widget.popupProps,
       itemAsString: widget.itemAsString,
