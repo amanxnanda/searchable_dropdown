@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'user_model.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'dropdownSearch Demo',
       //enable this line if you want test Dark Mode
       //theme: ThemeData.dark(),
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -48,12 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     void _handleCheckBoxState({bool updateState = true}) {
-      var selectedItem =
-          _popupBuilderKey.currentState?.popupGetSelectedItems ?? [];
-      var isAllSelected =
-          _popupBuilderKey.currentState?.popupIsAllItemSelected ?? false;
-      _popupBuilderSelection =
-          selectedItem.isEmpty ? false : (isAllSelected ? true : null);
+      var selectedItem = _popupBuilderKey.currentState?.popupGetSelectedItems ?? [];
+      var isAllSelected = _popupBuilderKey.currentState?.popupIsAllItemSelected ?? false;
+      _popupBuilderSelection = selectedItem.isEmpty ? false : (isAllSelected ? true : null);
 
       if (updateState) setState(() {});
     }
@@ -61,51 +62,54 @@ class _MyHomePageState extends State<MyHomePage> {
     _handleCheckBoxState(updateState: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text("DropdownSearch Demo")),
+      appBar: AppBar(title: const Text("DropdownSearch Demo")),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             children: <Widget>[
               ///************************[simple examples for single and multi selection]************///
-              Text("[simple examples for single and multi selection]"),
-              Divider(),
+              const Text("[simple examples for single and multi selection]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>.multiSelection(
-                      clearButtonProps: ClearButtonProps(isVisible: true),
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      clearButtonProps: const ClearButtonProps(isVisible: true),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                     ),
                   )
                 ],
               ),
 
               ///************************[simple examples for each mode]*************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[simple examples for each mode]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[simple examples for each mode]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>.multiSelection(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       key: _popupCustomValidationKey,
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                       popupProps: PopupPropsMultiSelection.dialog(
                         validationWidgetBuilder: (ctx, selectedItems) {
                           return Container(
@@ -114,10 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Align(
                               alignment: Alignment.center,
                               child: MaterialButton(
-                                child: Text('OK'),
+                                child: const Text('OK lajlkdjaj'),
                                 onPressed: () {
-                                  _popupCustomValidationKey.currentState
-                                      ?.popupOnValidate();
+                                  _popupCustomValidationKey.currentState?.popupOnValidate();
                                 },
                               ),
                             ),
@@ -128,29 +131,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-              Padding(padding: EdgeInsets.all(4)),
+              const Padding(padding: EdgeInsets.all(4)),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
-                      items: [1, 2, 3, 4, 5, 6, 7],
-                      dropdownDecoratorProps: DropDownDecoratorProps(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           labelText: "BottomSheet mode",
                           hintText: "Select an Int",
                         ),
                       ),
-                      popupProps: PopupProps.bottomSheet(
-                          bottomSheetProps: BottomSheetProps(
-                              elevation: 16,
-                              backgroundColor: Color(0xFFAADCEE))),
+                      popupProps: const PopupProps.bottomSheet(bottomSheetProps: BottomSheetProps(elevation: 16, backgroundColor: Color(0xFFAADCEE))),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>(
-                      items: [1, 2, 3, 4, 5, 6, 7],
-                      dropdownDecoratorProps: DropDownDecoratorProps(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           labelText: "Modal mode",
                           hintText: "Select an Int",
@@ -166,13 +168,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[Favorites examples]**********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[Favorites examples]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[Favorites examples]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<UserModel>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       asyncItems: (filter) => getData(filter),
                       compareFn: (i, s) => i.isEqual(s),
                       popupProps: PopupPropsMultiSelection.modalBottomSheet(
@@ -183,17 +186,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         favoriteItemProps: FavoriteItemProps(
                           showFavoriteItems: true,
                           favoriteItems: (us) {
-                            return us
-                                .where((e) => e.name.contains("Mrs"))
-                                .toList();
+                            return us.where((e) => e.name.contains("Mrs")).toList();
                           },
                         ),
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<UserModel>.multiSelection(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       asyncItems: (filter) => getData(filter),
                       compareFn: (i, s) => i.isEqual(s),
                       popupProps: PopupPropsMultiSelection.modalBottomSheet(
@@ -202,29 +204,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         favoriteItemProps: FavoriteItemProps(
                           showFavoriteItems: true,
                           favoriteItems: (us) {
-                            return us
-                                .where((e) => e.name.contains("Mrs"))
-                                .toList();
+                            return us.where((e) => e.name.contains("Mrs")).toList();
                           },
                           favoriteItemBuilder: (context, item, isSelected) {
                             return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 6),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey[100]),
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                              decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10), color: Colors.grey[100]),
                               child: Row(
                                 children: [
                                   Text(
-                                    "${item.name}",
+                                    item.name,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.indigo),
+                                    style: const TextStyle(color: Colors.indigo),
                                   ),
-                                  Padding(padding: EdgeInsets.only(left: 8)),
-                                  isSelected
-                                      ? Icon(Icons.check_box_outlined)
-                                      : SizedBox.shrink(),
+                                  const Padding(padding: EdgeInsets.only(left: 8)),
+                                  isSelected ? const Icon(Icons.check_box_outlined) : const SizedBox.shrink(),
                                 ],
                               ),
                             );
@@ -237,33 +231,38 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[validation examples]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[validation examples]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[validation examples]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                       autoValidateMode: AutovalidateMode.onUserInteraction,
                       validator: (int? i) {
-                        if (i == null)
+                        if (i == null) {
                           return 'required filed';
-                        else if (i >= 5) return 'value should be < 5';
+                        } else if (i >= 5) {
+                          return 'value should be < 5';
+                        }
                         return null;
                       },
-                      clearButtonProps: ClearButtonProps(isVisible: true),
+                      clearButtonProps: const ClearButtonProps(isVisible: true),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>.multiSelection(
-                      items: [1, 2, 3, 4, 5, 6, 7],
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
+                      items: const [1, 2, 3, 4, 5, 6, 7],
                       validator: (List<int>? items) {
-                        if (items == null || items.isEmpty)
+                        if (items == null || items.isEmpty) {
                           return 'required filed';
-                        else if (items.length > 3)
+                        } else if (items.length > 3) {
                           return 'only 1 to 3 items are allowed';
+                        }
                         return null;
                       },
                     ),
@@ -272,14 +271,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[custom popup background examples]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[custom popup background examples]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[custom popup background examples]"),
+              const Divider(),
               DropdownSearch<String>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                 items: List.generate(5, (index) => "$index"),
                 popupProps: PopupProps.menu(
                   fit: FlexFit.loose,
-                  menuProps: MenuProps(
+                  menuProps: const MenuProps(
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                   ),
@@ -292,14 +292,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           padding: const EdgeInsets.only(right: 12),
                           child: Image.asset(
                             'assets/images/arrow-up.png',
-                            color: Color(0xFF2F772A),
+                            color: const Color(0xFF2F772A),
                             height: 12,
                           ),
                         ),
                         Flexible(
                           child: Container(
+                            color: const Color(0xFF2F772A),
                             child: popupWidget,
-                            color: Color(0xFF2F772A),
                           ),
                         ),
                       ],
@@ -307,11 +307,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              Padding(padding: EdgeInsets.all(8)),
+              const Padding(padding: EdgeInsets.all(8)),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<String>.multiSelection(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       key: _popupBuilderKey,
                       items: List.generate(30, (index) => "$index"),
                       popupProps: PopupPropsMultiSelection.dialog(
@@ -320,25 +321,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         showSearchBox: true,
                         containerBuilder: (ctx, popupWidget) {
                           return _CheckBoxWidget(
-                            child: popupWidget,
                             isSelected: _popupBuilderSelection,
                             onChanged: (v) {
-                              if (v == true)
-                                _popupBuilderKey.currentState!
-                                    .popupSelectAllItems();
-                              else if (v == false)
-                                _popupBuilderKey.currentState!
-                                    .popupDeselectAllItems();
+                              if (v == true) {
+                                _popupBuilderKey.currentState!.popupSelectAllItems();
+                              } else if (v == false) {
+                                _popupBuilderKey.currentState!.popupDeselectAllItems();
+                              }
                               _handleCheckBoxState();
                             },
+                            child: popupWidget,
                           );
                         },
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<String>.multiSelection(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       key: _multiKey,
                       items: List.generate(30, (index) => "$index"),
                       popupProps: PopupPropsMultiSelection.dialog(
@@ -353,34 +354,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: OutlinedButton(
                                       onPressed: () {
                                         // How should I unselect all items in the list?
-                                        _multiKey.currentState
-                                            ?.closeDropDownSearch();
+                                        _multiKey.currentState?.closeDropDownSearch();
                                       },
                                       child: const Text('Cancel'),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: OutlinedButton(
                                       onPressed: () {
                                         // How should I select all items in the list?
-                                        _multiKey.currentState
-                                            ?.popupSelectAllItems();
+                                        _multiKey.currentState?.popupSelectAllItems();
                                       },
                                       child: const Text('All'),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: OutlinedButton(
                                       onPressed: () {
                                         // How should I unselect all items in the list?
-                                        _multiKey.currentState
-                                            ?.popupDeselectAllItems();
+                                        _multiKey.currentState?.popupDeselectAllItems();
                                       },
                                       child: const Text('None'),
                                     ),
@@ -398,15 +396,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[dropdownBuilder examples]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[DropDownSearch builder examples]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[DropDownSearch builder examples]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<UserModel>.multiSelection(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       asyncItems: (String? filter) => getData(filter),
-                      clearButtonProps: ClearButtonProps(isVisible: true),
+                      clearButtonProps: const ClearButtonProps(isVisible: true),
                       popupProps: PopupPropsMultiSelection.modalBottomSheet(
                         showSelectedItems: true,
                         itemBuilder: _customPopupItemBuilderExample2,
@@ -415,7 +414,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           controller: _userEditTextController,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.clear),
+                              icon: const Icon(Icons.clear),
                               onPressed: () {
                                 _userEditTextController.clear();
                               },
@@ -423,22 +422,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      compareFn: (item, selectedItem) =>
-                          item.id == selectedItem.id,
+                      compareFn: (item, selectedItem) => item.id == selectedItem.id,
                       dropdownDecoratorProps: DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           labelText: 'Users *',
                           filled: true,
-                          fillColor:
-                              Theme.of(context).inputDecorationTheme.fillColor,
+                          fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                         ),
                       ),
                       dropdownBuilder: _customDropDownExampleMultiSelection,
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<UserModel>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       asyncItems: (String? filter) => getData(filter),
                       popupProps: PopupPropsMultiSelection.modalBottomSheet(
                         showSelectedItems: true,
@@ -450,8 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         dropdownSearchDecoration: InputDecoration(
                           labelText: 'User *',
                           filled: true,
-                          fillColor:
-                              Theme.of(context).inputDecorationTheme.fillColor,
+                          fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                         ),
                       ),
                     ),
@@ -460,25 +457,27 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[Dynamic height depending on items number]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[popup dynamic height examples]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[popup dynamic height examples]"),
+              const Divider(),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       items: List.generate(50, (i) => i),
-                      popupProps: PopupProps.menu(
+                      popupProps: const PopupProps.menu(
                         showSearchBox: true,
                         title: Text('default fit'),
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       items: List.generate(50, (i) => i),
-                      popupProps: PopupProps.menu(
+                      popupProps: const PopupProps.menu(
                         title: Text('With fit to loose and no constraints'),
                         showSearchBox: true,
                         fit: FlexFit.loose,
@@ -489,13 +488,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-              Padding(padding: EdgeInsets.all(4)),
+              const Padding(padding: EdgeInsets.all(4)),
               Row(
                 children: [
                   Expanded(
                     child: DropdownSearch<int>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       items: List.generate(50, (i) => i),
-                      popupProps: PopupProps.menu(
+                      popupProps: const PopupProps.menu(
                         showSearchBox: true,
                         fit: FlexFit.loose,
                         title: Text('fit to a specific max height'),
@@ -503,11 +503,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(4)),
+                  const Padding(padding: EdgeInsets.all(4)),
                   Expanded(
                     child: DropdownSearch<int>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                       items: List.generate(50, (i) => i),
-                      popupProps: PopupProps.menu(
+                      popupProps: const PopupProps.menu(
                         title: Text('fit to a specific width and height'),
                         showSearchBox: true,
                         fit: FlexFit.loose,
@@ -522,33 +523,34 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               ///************************[Handle dropdown programmatically]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[handle dropdown programmatically]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[handle dropdown programmatically]"),
+              const Divider(),
               DropdownSearch<int>(
                 key: _openDropDownProgKey,
-                items: [1, 2, 3],
+                items: const [1, 2, 3],
               ),
-              Padding(padding: EdgeInsets.all(4)),
+              const Padding(padding: EdgeInsets.all(4)),
               ElevatedButton(
                 onPressed: () {
                   _openDropDownProgKey.currentState?.changeSelectedItem(100);
                 },
-                child: Text('set to 100'),
+                child: const Text('set to 100'),
               ),
-              Padding(padding: EdgeInsets.all(4)),
+              const Padding(padding: EdgeInsets.all(4)),
               ElevatedButton(
                 onPressed: () {
                   _openDropDownProgKey.currentState?.openDropDownSearch();
                 },
-                child: Text('open popup'),
+                child: const Text('open popup'),
               ),
 
               ///************************[multiLevel items example]********************************///
-              Padding(padding: EdgeInsets.all(8)),
-              Text("[multiLevel items example]"),
-              Divider(),
+              const Padding(padding: EdgeInsets.all(8)),
+              const Text("[multiLevel items example]"),
+              const Divider(),
               DropdownSearch<MultiLevelString>(
+                      adjacentWidget: ElevatedButton(onPressed: () {}, child: const Text('Submit')),
                 key: myKey,
                 items: myItems,
                 compareFn: (i1, i2) => i1.level1 == i2.level1,
@@ -563,33 +565,30 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? null
                           : (item.isExpanded
                               ? IconButton(
-                                  icon: Icon(Icons.arrow_drop_down),
+                                  icon: const Icon(Icons.arrow_drop_down),
                                   onPressed: () {
                                     item.isExpanded = !item.isExpanded;
                                     myKey.currentState?.updatePopupState();
                                   },
                                 )
                               : IconButton(
-                                  icon: Icon(Icons.arrow_right),
+                                  icon: const Icon(Icons.arrow_right),
                                   onPressed: () {
                                     item.isExpanded = !item.isExpanded;
                                     myKey.currentState?.updatePopupState();
                                   },
                                 )),
                       subtitle: item.subLevel.isNotEmpty && item.isExpanded
-                          ? Container(
+                          ? SizedBox(
                               height: item.subLevel.length * 50,
                               child: ListView(
                                 children: item.subLevel
                                     .map(
                                       (e) => ListTile(
-                                        selected: myKey.currentState
-                                                ?.getSelectedItem?.level1 ==
-                                            e.level1,
+                                        selected: myKey.currentState?.getSelectedItem?.level1 == e.level1,
                                         title: Text(e.level1),
                                         onTap: () {
-                                          myKey.currentState
-                                              ?.popupValidate([e]);
+                                          myKey.currentState?.popupValidate([e]);
                                         },
                                       ),
                                     )
@@ -609,10 +608,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _customDropDownExampleMultiSelection(
-      BuildContext context, List<UserModel?> selectedItems) {
+  Widget _customDropDownExampleMultiSelection(BuildContext context, List<UserModel?> selectedItems) {
     if (selectedItems.isEmpty) {
-      return ListTile(
+      return const ListTile(
         contentPadding: EdgeInsets.all(0),
         leading: CircleAvatar(),
         title: Text("No item selected"),
@@ -623,17 +621,15 @@ class _MyHomePageState extends State<MyHomePage> {
       children: selectedItems.map((e) {
         return Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Container(
-            child: ListTile(
-              contentPadding: EdgeInsets.all(0),
-              leading: CircleAvatar(
-                  // this does not work - throws 404 error
-                  // backgroundImage: NetworkImage(item.avatar ?? ''),
-                  ),
-              title: Text(e?.name ?? ''),
-              subtitle: Text(
-                e?.createdAt.toString() ?? '',
-              ),
+          child: ListTile(
+            contentPadding: const EdgeInsets.all(0),
+            leading: const CircleAvatar(
+                // this does not work - throws 404 error
+                // backgroundImage: NetworkImage(item.avatar ?? ''),
+                ),
+            title: Text(e?.name ?? ''),
+            subtitle: Text(
+              e?.createdAt.toString() ?? '',
             ),
           ),
         );
@@ -647,7 +643,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool isSelected,
   ) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: !isSelected
           ? null
           : BoxDecoration(
@@ -659,7 +655,7 @@ class _MyHomePageState extends State<MyHomePage> {
         selected: isSelected,
         title: Text(item?.name ?? ''),
         subtitle: Text(item?.createdAt?.toString() ?? ''),
-        leading: CircleAvatar(
+        leading: const CircleAvatar(
             // this does not work - throws 404 error
             // backgroundImage: NetworkImage(item.avatar ?? ''),
             ),
@@ -687,7 +683,7 @@ class _CheckBoxWidget extends StatefulWidget {
   final bool? isSelected;
   final ValueChanged<bool?>? onChanged;
 
-  _CheckBoxWidget({required this.child, this.isSelected, this.onChanged});
+  const _CheckBoxWidget({required this.child, this.isSelected, this.onChanged});
 
   @override
   CheckBoxState createState() => CheckBoxState();
@@ -711,7 +707,7 @@ class CheckBoxState extends State<_CheckBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -727,12 +723,12 @@ class CheckBoxState extends State<_CheckBoxWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Select: '),
+              const Text('Select: '),
               Checkbox(
                   value: isSelected,
                   tristate: true,
                   onChanged: (bool? v) {
-                    if (v == null) v = false;
+                    v ??= false;
                     setState(() {
                       isSelected = v;
                       if (widget.onChanged != null) widget.onChanged!(v);
